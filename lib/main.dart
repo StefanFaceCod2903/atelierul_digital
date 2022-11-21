@@ -5,50 +5,50 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final myController = TextEditingController();
+  final TextEditingController myController = TextEditingController();
   double showText = 0;
   String? error;
-  double ?amountInRon;
+  double? amountInRon;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Currency Convertor",
+      title: 'Currency Convertor',
       home: Scaffold(
-          appBar: AppBar(
-            title: const Center(child: Text("Currency Convertor")),
-          ),
-          body: Column(children: [
+        appBar: AppBar(
+          title: const Center(child: Text('Currency Convertor')),
+        ),
+        body: Column(
+          children: <Widget>[
             const Image(image: AssetImage('assets/ron.jpg')),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextField(
                 controller: myController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: "Enter an amount in EURO.", errorText: error),
+                decoration: InputDecoration(hintText: 'Enter an amount in EURO.', errorText: error),
               ),
             ),
-            Container(
-              color:Colors.grey,
+            ColoredBox(
+              color: Colors.grey,
               child: TextButton(
-                child: const Text("Convert!", style: TextStyle(color:Colors.black)),
+                child: const Text('Convert!', style: TextStyle(color: Colors.black)),
                 onPressed: () {
-                  setState(()  {
-                    String text = myController.text;
-                    double? amountInEuro = double.tryParse(myController.text);
-                    if (amountInEuro!=null) {
+                  setState(() {
+                    final double? amountInEuro = double.tryParse(myController.text);
+                    if (amountInEuro != null && amountInEuro > 0) {
                       showText = 1.0;
                       amountInRon = amountInEuro * 4.97;
                       error = null;
                     } else {
                       showText = 0;
-                      error = "This is not a valid number!";
+                      error = 'This is not a valid number!';
                     }
                   });
                 },
@@ -57,11 +57,15 @@ class _MyAppState extends State<MyApp> {
             Opacity(
               opacity: showText,
               child: Center(
-                child: Text("$amountInRon RON", style: const TextStyle(fontSize: 20),
+                child: Text(
+                  '$amountInRon RON',
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
             )
-          ])),
+          ],
+        ),
+      ),
     );
   }
 }
