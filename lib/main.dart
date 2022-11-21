@@ -16,6 +16,7 @@ class _MyAppState extends State<MyApp> {
   double showText = 0;
   String? error;
   double? amountInRon;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,16 +33,19 @@ class _MyAppState extends State<MyApp> {
               child: TextField(
                 controller: myController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: 'Enter an amount in EURO.', errorText: error),
+                decoration: InputDecoration(
+                    hintText: 'Enter an amount in EURO.', errorText: error),
               ),
             ),
             ColoredBox(
               color: Colors.grey,
               child: TextButton(
-                child: const Text('Convert!', style: TextStyle(color: Colors.black)),
+                child: const Text('Convert!',
+                    style: TextStyle(color: Colors.black)),
                 onPressed: () {
                   setState(() {
-                    final double? amountInEuro = double.tryParse(myController.text);
+                    final double? amountInEuro =
+                        double.tryParse(myController.text);
                     if (amountInEuro != null && amountInEuro > 0) {
                       showText = 1.0;
                       amountInRon = amountInEuro * 4.97;
